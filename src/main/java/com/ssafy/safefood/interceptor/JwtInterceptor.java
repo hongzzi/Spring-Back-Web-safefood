@@ -13,24 +13,28 @@ import lombok.extern.slf4j.Slf4j;
 
 @Component
 @Slf4j
-public class JwtInterceptor implements HandlerInterceptor {
+public class JwtInterceptor implements HandlerInterceptor{
 	
 	@Autowired
 	private JwtService jwtService;
 	
-
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
-		String token = request.getParameter("auth_token");
-		if(token != null && token.length() > 0 ) {
-			// 유효한 토큰이면 진행, 그렇지않으면 예외! 
-			jwtService.checkValid(token);
-			log.trace("토큰 사용 가능 : {}", token);
-			return true;
-		} else {
-			throw new RuntimeException("인증 토큰이 없습니다. ");
-		}
-	}
+		System.out.println(request.getMethod()+":" + request.getServletPath());
+			if(request.getMethod().equals("OPTIONS")) {
+				return true;
+			} else {
+				String token = request.getHeader("jwt-auth-token");
+				if(token != null && token.length() > 0) {
+					jwtService.checkValid(token);
+					log.trace("토큰 사용가능 : {}", token);
+					return true;
+				} else {
+					throw new RuntimeException("인증토큰이 없습니다. ");
+				}
+			}
 	
+	}
+
 }

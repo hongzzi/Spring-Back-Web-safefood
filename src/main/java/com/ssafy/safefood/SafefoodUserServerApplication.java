@@ -20,18 +20,19 @@ public class SafefoodUserServerApplication implements WebMvcConfigurer{
 
 	@Autowired
 	private JwtInterceptor jwtInterceptor;
-	public SafefoodUserServerApplication() {
-		// TODO Auto-generated constructor stub
-	}
 	
 	public void addInterceptors(InterceptorRegistry registry) {
 		registry.addInterceptor(jwtInterceptor).addPathPatterns("/**")
-												.excludePathPatterns(Arrays.asList("/auth/**"));
+												.excludePathPatterns(Arrays.asList("/**"));
 		
 	}
 	
 	@Override
 	public void addCorsMappings(CorsRegistry registry) {
-		registry.addMapping("/**").allowedOrigins("*").allowedMethods("GET","POST","OPTIONS", "PUT");
+		registry.addMapping("/**")
+		.allowedOrigins("*")
+		.allowedMethods("*")
+		.allowedHeaders("*")
+		.exposedHeaders("jwt-auth-token");
 	}
 }

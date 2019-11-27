@@ -6,20 +6,20 @@
 <mapper namespace="sql.safefood">
 
 	<insert id="restUserInsert" parameterType="user">
-		insert into member_u
+		insert into user_info
 			values( #{email},#{passWord},#{name},#{allergy} )
 	</insert>
 
 	<select id="restUserSelect" parameterType="String" resultType="user">
-		select * from member_u where email = #{email}
+		select * from user_info where email = #{email}
 	</select>
 	
 	<update id="restUserUpdate" parameterType="user">
-		update member_u set pass_word = #{passWord}, name = #{name}, allergy = #{allergy} where email = #{email}
+		update user_info set pass_word = #{passWord}, name = #{name}, allergy = #{allergy} where email = #{email}
 	</update>
 	
 	<delete id="restUserDelete" parameterType="String">
-		delete from member_u where email = #{email}
+		delete from user_info where email = #{email}
 	</delete>
 	
 </mapper>

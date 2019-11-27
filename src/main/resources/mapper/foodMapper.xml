@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="sql.foodMapper">
+	<select id="listFoods" parameterType="map" resultType="food">
+		select *
+		  from food_info
+		 order by code
+		 limit #{startPage}, #{sizePage} 
+	</select>
+	
+	<select id="getFoodsPageSize" resultType="int">
+		select count(*)
+		  from food_info
+		  where (case when #{condition}=1 then name
+		              when #{condition}=2 then maker
+		              when #{condition}=3 then material
+		              else #{text} end) like #{text} 
+	</select>
+	
+	<select id="searchFoods" parameterType="map" resultType="food">
+		select *
+		  from food_info
+		 where (case when #{condition}=1 then name
+		             when #{condition}=2 then maker
+		             when #{condition}=3 then material
+		             else #{text} end) like #{text}
+		 order by code
+		 limit #{startPage}, #{sizePage} 
+	</select>
+	
+	<select id="getFoodByCode" parameterType="int" resultType="food">
+		select *
+		  from food_info
+		 where code = #{code} 
+	</select>
+	
+	<select id="listRelativeFoods" parameterType="food" resultType="food">
+		select *
+		  from food_info
+	</select>
+	
+</mapper>

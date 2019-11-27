@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="sql.boardMapper">
+	<select id="getNoticeBoardPageSize" resultType="int">
+		select count(*)
+		  from board_notice
+		 where (case when #{condition}=1 then title
+		             when #{condition}=2 then content
+		             when #{condition}=3 then concat(title, "|", content)
+		             else #{text} end) like #{text}
+	</select>
+
+	<select id="getNoticeBoardList" parameterType="map" resultType="board">
+		select bn.board_id,
+		       bn.user_id,
+		       bn.user_name,
+		       bn.title,
+		       bn.content,
+		       bnv.view_count,
+		       bn.insert_time,
+		       bn.update_time
+		  from board_notice bn
+		  left outer join board_notice_view bnv
+		            using (board_id)
+		 where (case when #{condition}=1 then bn.title
+		             when #{condition}=2 then bn.content
+		             when #{condition}=3 then concat(bn.title, "|", bn.content)
+		             else #{text} end) like #{text}
+		 order by bn.board_id desc
+		 limit #{pageStart}, #{pageSize} 
+	</select>
+	
+	<insert id="insertNoticeBoard" parameterType="board" useGeneratedKeys="true" keyProperty="boardId">
+		insert into board_notice(user_id, user_name, title, content, insert_time)
+		     values (#{userId}, #{userName}, #{title}, #{content}, CURRENT_TIMESTAMP())
+	</insert>
+	
+	<update id="updateNoticeBoard" parameterType="board">
+		update board_notice
+		   set title = #{title},
+		       content = #{content},
+		       update_time = CURRENT_TIMESTAMP()
+		 where board_id = #{board_id}
+	</update>
+	
+	
+	<delete id="deleteNoticeBoard" parameterType="int">
+		delete from board_notice
+		      where board_id = #{boardId}
+	</delete>
+	
+	<insert id="insertNoticeBoardView" parameterType="int">
+		insert into board_notice_view
+		     values (#{boardId}, 0) 
+	</insert>
+	
+	<update id="addNoticeBoardView" parameterType="int">
+		update board_notice_view
+		   set view_count = (select ibnv.view_count + 1
+		                       from board_notice_view ibnv
+		                      where ibnv.board_id = #{boardId})
+		 where board_id = #{boardId}
+	</update>
+	
+	<delete id="deleteNoticeBoardView" parameterType="int">
+		delete from board_notice_view
+		      where board_id = #{boardId}
+	</delete>
+</mapper>
