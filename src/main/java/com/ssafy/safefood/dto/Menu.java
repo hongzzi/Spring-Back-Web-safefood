@@ -10,6 +10,7 @@ public class Menu {
 	private String menuName;
 	private Date menuDate;
 	private int menuOrder;
+	private double calory;
 	private double carbo;
 	private double protein;
 	private double fat;
