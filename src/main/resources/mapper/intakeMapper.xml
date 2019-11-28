@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+	
+<mapper namespace="sql.intakeMapper">
+
+	<insert id="restIntakeInsert" parameterType="intake">
+		insert into intake_history(food_id,email,quantity,intake_date)
+			values(#{foodId},#{email},#{quantity},#{intakeDate})
+	</insert>
+
+	<select id="restIntakeSelectByDate" parameterType="Map" resultType="intake">
+		select * from intake_history where email = #{email} and intake_date = #{intakeDate}
+	</select>
+	
+	<update id="restIntakeUpdate" parameterType="intake">
+		update intake_history set quantity = #{quantity} where intake_id = #{intakeId}
+	</update>
+	
+	<delete id="restIntakeDelete" parameterType="intake">
+		delete from intake_history where intake_id = #{intakeId}
+	</delete>
+	
+</mapper>

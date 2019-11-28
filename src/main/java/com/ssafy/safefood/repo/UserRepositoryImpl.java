@@ -9,7 +9,7 @@ import com.ssafy.safefood.dto.User;
 @Repository
 public class UserRepositoryImpl implements UserRepository {
 	
-	private final String namespace = "sql.safefood.";
+	private final String namespace = "sql.userMapper.";
 	
 	@Autowired
 	SqlSession session;

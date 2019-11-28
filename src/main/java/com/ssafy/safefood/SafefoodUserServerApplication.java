@@ -24,7 +24,7 @@ public class SafefoodUserServerApplication implements WebMvcConfigurer{
 	public void addInterceptors(InterceptorRegistry registry) {
 		registry.addInterceptor(jwtInterceptor).addPathPatterns("/**")
 												.excludePathPatterns(Arrays.asList("/**"));
-		
+		// 나중에 토큰 체크할 부분
 	}
 	
 	@Override
