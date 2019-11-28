@@ -19,8 +19,8 @@ public class MenuRepositoryImpl implements MenuRepository{
 	@Override
 	public List<Food> getWeekdayMenuList(Date startDate, Date endDate) {
 		Map<String, Object> params = new HashMap<>();
-		params.put("startDate", startDate);
-		params.put("endDate", endDate);
+		params.put("startDate", startDate.toString());
+		params.put("endDate", endDate.toString());
 		return session.selectList(MAPPER_STATEMENT+"getWeekdayMenuList", params);
 	}
 
