@@ -1,6 +1,6 @@
 package com.ssafy.safefood.service;
 
-import java.util.Date;
+import java.sql.Date;
 import java.util.List;
 
 import com.ssafy.safefood.dto.Intake;
@@ -11,5 +11,5 @@ public interface IntakeService {
 	
 	int addHistory(Intake intake);
 	int editHistory(Intake intake);
-	int removeHistory(Intake intake);
+	int removeHistory(int intakeId);
 }

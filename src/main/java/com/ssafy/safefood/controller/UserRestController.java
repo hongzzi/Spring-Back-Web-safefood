@@ -29,7 +29,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @RestController
 @RequestMapping("/user")
-//@CrossOrigin({"*"})
+@CrossOrigin({"*"})
 @Slf4j
 public class UserRestController {
 
@@ -69,7 +69,8 @@ public class UserRestController {
 				resultMap.put("data", reqUser);
 				return response(resultMap, HttpStatus.ACCEPTED, true);
 			} else {
-				return response("유효하지 않은 접근입니다.", HttpStatus.CONFLICT, false);
+				resultMap.put("message", "아이디 혹은 비밀번호가 틀렸습니다. 다시 시도해주세요");
+				return response(resultMap, HttpStatus.ACCEPTED, true);
 			}
 		} catch (Exception e) {
 			return response(e.getMessage(), HttpStatus.CONFLICT, false);
