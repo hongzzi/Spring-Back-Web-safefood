@@ -1,6 +1,6 @@
 package com.ssafy.safefood.service;
 
-import java.util.Date;
+import java.sql.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,8 +31,8 @@ public class IntakeServiceImpl implements IntakeService {
 	}
 
 	@Override
-	public int removeHistory(Intake intake) {
-		return repo.deleteHistory(intake);
+	public int removeHistory(int intakeId) {
+		return repo.deleteHistory(intakeId);
 	}
 
 }

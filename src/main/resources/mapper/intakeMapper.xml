@@ -10,15 +10,33 @@
 			values(#{foodId},#{email},#{quantity},#{intakeDate})
 	</insert>
 
-	<select id="restIntakeSelectByDate" parameterType="Map" resultType="intake">
-		select * from intake_history where email = #{email} and intake_date = #{intakeDate}
+	<select id="restIntakeSelect" parameterType="map" resultType="intake">
+		select * from intake_history where email = #{email} and intake_date between #{intakeDate} and #{intakeDate}
+	</select>
+	
+	<select id="restIntakeSelectByDate" parameterType="map" resultType="intake">
+		select ih.intake_id,
+		       ih.food_id,
+		       ih.email,
+		       ih.quantity,
+		       ih.intake_date,
+		       fi.name as food_name,
+		       fi.calory,
+		       fi.carbo,
+		       fi.protein,
+		       fi.fat
+		  from intake_history ih
+		  left outer join food_info fi 
+		               on ih.food_id = fi.code
+		 where ih.email = #{email} 
+		   and ih.intake_date between #{intakeDate} and #{intakeDate}
 	</select>
 	
 	<update id="restIntakeUpdate" parameterType="intake">
 		update intake_history set quantity = #{quantity} where intake_id = #{intakeId}
 	</update>
 	
-	<delete id="restIntakeDelete" parameterType="intake">
+	<delete id="restIntakeDelete" parameterType="int">
 		delete from intake_history where intake_id = #{intakeId}
 	</delete>
 	

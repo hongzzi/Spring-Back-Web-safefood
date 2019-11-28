@@ -1,6 +1,6 @@
 package com.ssafy.safefood.repo;
 
-import java.util.Date;
+import java.sql.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -23,7 +23,7 @@ public class IntakeRepositoryImpl implements IntakeRepository{
 	public List<Intake> selectHistory(String email, Date intakeDate) {
 		Map<String, Object> map = new HashMap<>();
 		map.put("email", email);
-		map.put("intakeDate", intakeDate);
+		map.put("intakeDate", intakeDate.toString());
 		return session.selectList(namespace+"restIntakeSelectByDate", map);
 	}
 
@@ -38,8 +38,8 @@ public class IntakeRepositoryImpl implements IntakeRepository{
 	}
 
 	@Override
-	public int deleteHistory(Intake intake) {
-		return session.delete(namespace+"restIntakeDelete", intake);
+	public int deleteHistory(int intakeId) {
+		return session.delete(namespace+"restIntakeDelete", intakeId);
 	}
 
 }

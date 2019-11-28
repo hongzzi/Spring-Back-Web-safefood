@@ -11,13 +11,9 @@ public class Intake {
 	private String email;
 	private int quantity;
 	private Date intakeDate;
-	
-	public Intake(int foodId, String email, int quantity, Date intakeDate) {
-		super();
-		this.foodId = foodId;
-		this.email = email;
-		this.quantity = quantity;
-		this.intakeDate = intakeDate;
-	}
-	
+	private String foodName;
+	private double calory;
+	private double carbo;
+	private double protein;
+	private double fat;
 }

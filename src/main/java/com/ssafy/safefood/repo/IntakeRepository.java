@@ -1,6 +1,6 @@
 package com.ssafy.safefood.repo;
 
-import java.util.Date;
+import java.sql.Date;
 import java.util.List;
 
 import com.ssafy.safefood.dto.Intake;
@@ -11,5 +11,5 @@ public interface IntakeRepository {
 	
 	int insertHistory(Intake intake);
 	int updateHistory(Intake intake);
-	int deleteHistory(Intake intake);
+	int deleteHistory(int intakeId);
 }
